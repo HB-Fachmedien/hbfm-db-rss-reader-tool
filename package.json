@@ -1,0 +1,23 @@
+{
+  "name": "hbfm-db-rss-reader-tool",
+  "version": "0.1.0",
+  "description": "Konvertiert Meldungen und Interviews von www.der-betrieb.de in XML, das in InDesign importiert werden kann",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "Electron",
+    "RSS Reader"
+  ],
+  "author": "Stefan Maibücher",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^1.4.1"
+  },
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "materialize-css": "^0.98.0",
+    "stream-replace": "^1.0.0"
+  }
+}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Der Betrieb RSS Reader</title>
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="./node_modules/materialize-css/dist/css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="./css/hbfm.css" media="screen,projection" />
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> </head>
+
+<body class="grey lighten-3">
+    <nav>
+        <div class="nav-wrapper white">
+            <a href="#" class="brand-logo"><img class="responsive-img hbfm-logo" src="handelsblatt-fachmedien-logo.svg" alt="HBFM Logo"></a>
+        </div>
+    </nav>
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <h1 class="header center orange-text darken-3">DB Newsreader App</h1>
+            <div class="row center">Was soll verarbeitet werden?</div>
+            <form action="#">
+                <div class="row center">
+                    <input name="group1" type="radio" id="meldungen" />
+                    <label for="meldungen">Meldungen</label>
+                    <input name="group1" type="radio" id="interviews" />
+                    <label for="interviews">Interviews</label>
+                </div>
+            </form>
+            <br/>
+            <div class="row center" id="ressort_row">
+                <div class="input-field col s4 offset-s4">
+                    <select id="ressortAuswahl">
+                        <option value="" disabled>Welches Ressort?</option>
+                        <option value="1" selected>Alle</option>
+                        <option value="2">Steuerrecht</option>
+                        <option value="3">Wirtschaftsrecht</option>
+                        <option value="4">Arbeitsrecht</option>
+                        <option value="5">Betriebswirtschaft</option>
+                    </select>
+                    <label>Ressort</label>
+                </div>
+            </div>
+            <br/>
+            <div class="row center">
+                <form action="#">
+                    <div class="row center">
+                        <input name="group2" type="radio" id="itemAusInterval" />
+                        <label for="itemAusInterval">Zeitraum auswählen</label>
+                        <input name="group2" type="radio" id="dieLetztenXItems" />
+                        <label for="dieLetztenXItems">Die letzten paar Meldungen/Interviews auswählen</label>
+                    </div>
+                </form>
+                <div class="row center" id="calendar_row">
+                    <div id="zeitraum-waehlen-start" class="col s6">
+                        <form action="#">
+                            <div class="col s4 offset-s2">
+                                <label for="start_interval_date">Start auswählen</label>
+                                <input id="start_interval_date" type="date" class="datepicker-start"> </div>
+                        </form>
+                    </div>
+                    <div id="zeitraum-waehlen-ende" class="col s6">
+                        <form action="#">
+                            <div class="col s4 offset-s2">
+                                <label for="end_interval_date">Ende auswählen</label>
+                                <input id="end_interval_date" type="date" class="datepicker-end"> </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row center" id="select_row">
+                    <div class="input-field col s4 offset-s4">
+                        <select id="dieLetztenWieviele">
+                            <option value="0" disabled>Die letzten..</option>
+                            <option value="1" selected>1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                        </select>
+                        <label>Die letzten...</label>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row center"> <a id="start-button" class="btn-large waves-effect waves-light orange darken-3">RSS Feed lesen testen</a> </div>
+            <div class="row center"> <a id="test-button" class="btn-large waves-effect waves-light orange darken-3">XSL Transformation testen</a> </div>
+        </div>
+    </div>
+    <!-- <footer class="page-footer orange darken-3">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Company Bio</h5>
+                    <p class="grey-text text-lighten-4">HBFM und so...</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container"> Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a> </div>
+        </div>
+    </footer> -->
+    </form>
+</body>
+<script>
+    // You can also require other files to run in this process
+    require('jquery');
+    require('materialize-css');
+    require('./renderer.js');
+</script>
+
+</html>
