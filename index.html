@@ -15,7 +15,7 @@
 <body class="grey lighten-3">
     <nav>
         <div class="nav-wrapper white">
-            <a href="#" class="brand-logo"><img class="responsive-img hbfm-logo" src="handelsblatt-fachmedien-logo.svg" alt="HBFM Logo"></a>
+            <a href="#" class="brand-logo"> <img class="responsive-img hbfm-logo" src="handelsblatt-fachmedien-logo.svg" alt="HBFM Logo"> </a>
         </div>
     </nav>
     <div class="section no-pad-bot" id="index-banner">
@@ -86,31 +86,69 @@
                     </div>
                 </div>
             </div>
-            <br>
-            <div class="row center"> <a id="start-button" class="btn-large waves-effect waves-light orange darken-3">RSS Feed lesen testen</a> </div>
-            <div class="row center"> <a id="test-button" class="btn-large waves-effect waves-light orange darken-3">XSL Transformation testen</a> </div>
-        </div>
-    </div>
-    <!-- <footer class="page-footer orange darken-3">
-        <div class="container">
-            <div class="row">
-                <div class="col l6 s12">
-                    <h5 class="white-text">Company Bio</h5>
-                    <p class="grey-text text-lighten-4">HBFM und so...</p>
+
+            <div class="row center" id="loader">
+                <div class="preloader-wrapper big active">
+                    <div class="spinner-layer spinner-blue">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                    <div class="spinner-layer spinner-red">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                    <div class="spinner-layer spinner-yellow">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                    <div class="spinner-layer spinner-green">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="footer-copyright">
-            <div class="container"> Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a> </div>
-        </div>
-    </footer> -->
-    </form>
+
+            <div class="row center">
+                <a id="start-button" class="btn-large waves-effect waves-light orange darken-3">XML erstellen</a>
+            </div>
+            <!-- <div class="row center"><a id="test-button" class="btn-large waves-effect waves-light orange darken-3">XSL Transformation testen</a></div> -->
+            </div>
+    </div>
+    <!-- <footer class="page-footer orange darken-3"><div class="container"><div class="row"><div class="col l6 s12"><h5 class="white-text">Company Bio</h5><p class="grey-text text-lighten-4">HBFM und so...</p></div></div></div><div class="footer-copyright"><div class="container"> Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a></div></div></footer> -->
+    <script>
+        // You can also require other files to run in this process
+        require('jquery');
+        require('materialize-css');
+        require('./renderer.js');
+    </script>
 </body>
-<script>
-    // You can also require other files to run in this process
-    require('jquery');
-    require('materialize-css');
-    require('./renderer.js');
-</script>
 
 </html>

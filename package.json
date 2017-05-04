@@ -1,6 +1,6 @@
 {
   "name": "hbfm-db-rss-reader-tool",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Konvertiert Meldungen und Interviews von www.der-betrieb.de in XML, das in InDesign importiert werden kann",
   "main": "main.js",
   "scripts": {

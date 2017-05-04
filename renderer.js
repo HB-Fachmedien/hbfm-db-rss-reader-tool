@@ -11,6 +11,8 @@ var fs = require('fs');
 
 console.log("Los gehts...");
 
+$('#loader').hide();
+
 var dir = './output';
 if (!fs.existsSync(dir)){
     fs.mkdirSync(dir);
@@ -24,6 +26,9 @@ $('#start-button').on('click', function(event) {
     event.preventDefault();
 
     // validateIfJavaAndSaxonIsInstalled()
+
+    $('#start-button').addClass('disabled');
+    $( "#loader" ).toggle();
 
 
     let inputsOk = validateInputs();
@@ -55,24 +60,6 @@ $('#start-button').on('click', function(event) {
                 ressortNumber = 11;
         }
     }
-    rssreader.leseFeed("https://www.der-betrieb.de/feed/?cat=" + ressortNumber).then(function() {
-        console.log("Datei erstellt... Promise Rückgabe");
-
-    });
-
-    // konvertiereFeedDatei()
-    //trans.executeTransformation(); // auch noch als Promise formulieren
-
-    // gibRückmeldung()
-
-});
-
-$('#test-button').on('click', function(event) {
-    event.preventDefault();
-    //rssreader.test();
-    //alert("test");
-
-    readAllInputs();
 
     let transformationArgs = { // muss direkt nach dem readInputs gefüllt werden
         welcherNachrichtenTyp: welcherNachrichtenTyp,
@@ -84,10 +71,46 @@ $('#test-button').on('click', function(event) {
         dieLetztenWieviele: dieLetztenWieviele
     }
 
-    trans.executeTransformation(transformationArgs).then(function() {
-        console.log("Transformation wurde ausgeführt.");
+    
+    rssreader.leseFeed("https://www.der-betrieb.de/feed/?cat=" + ressortNumber).then(function() {
+        console.log("Datei erstellt... Promise Rückgabe");
+
+        // konvertiereFeedDatei()
+        trans.executeTransformation(transformationArgs).then(function() {
+            console.log("Transformation wurde ausgeführt.");
+
+            $('#start-button').removeClass('disabled');
+            $( "#loader" ).toggle();
+        });
     });
+
+    // gibRückmeldung()
+
+    // danach lade Seite neu
+
 });
+
+// $('#test-button').on('click', function(event) {
+//     event.preventDefault();
+//     //rssreader.test();
+//     //alert("test");
+
+//     readAllInputs();
+
+//     let transformationArgs = { // muss direkt nach dem readInputs gefüllt werden
+//         welcherNachrichtenTyp: welcherNachrichtenTyp,
+//         dieLetztenWieviele: dieLetztenWieviele,
+//         welchesRessort: welchesRessort,
+//         zeitraumOderDieLetztenX: zeitraumOderDieLetztenX,
+//         startDate: startDate,
+//         endDate: endDate,
+//         dieLetztenWieviele: dieLetztenWieviele
+//     }
+
+//     trans.executeTransformation(transformationArgs).then(function() {
+//         console.log("Transformation wurde ausgeführt.");
+//     });
+// });
 
 $('.datepicker-start, .datepicker-end').pickadate({
     selectMonths: true, // Creates a dropdown to control month
