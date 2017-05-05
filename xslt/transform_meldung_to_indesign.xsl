@@ -7,10 +7,10 @@
     <xsl:param name="endDate"/>
 
 
-    <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
+    <xsl:output method="xml" encoding="UTF-8" indent="no"/>
 
     <xsl:template match="/">
-
+        <xsl:text>&#xa;</xsl:text>
         <indesign>
             <xsl:choose>
                 <xsl:when test="$zeitraumOderDieLetztenX = 'dieLetztenXItems'">
@@ -24,32 +24,37 @@
                     <xsl:apply-templates select="rss/channel/item[(format-number(number(replace(meldung_erstellungsdatum,'-','')),'#') &lt;= $bereinigtes_endDate ) and (format-number(number(replace(meldung_erstellungsdatum,'-','')),'#') &gt;= $bereinigtes_startDate) ]"/>
                 </xsl:otherwise>
             </xsl:choose>
+            <xsl:text>&#xa;</xsl:text>
         </indesign>
     </xsl:template>
 
     <xsl:template match="item">
+        <xsl:text>&#xa;</xsl:text>
         <MEL-RUBRIK>
             <xsl:value-of select="category[not(text() = 'Meldung')]"/>
         </MEL-RUBRIK>
+        <xsl:text>&#xa;</xsl:text>
         <MEL-TITEL>
             <xsl:value-of select="title"/>
         </MEL-TITEL>
+        <xsl:text>&#xa;</xsl:text>
         <MEL-ABSTRACT>
             <xsl:apply-templates select="description"/>
         </MEL-ABSTRACT>
         <xsl:apply-templates select="content/*[position()>1]"/>
     </xsl:template>
 
-    <xsl:template match="node()">
+    <!--<xsl:template match="node()">
         <xsl:copy>
             <xsl:apply-templates select="node()"/>
         </xsl:copy>
-    </xsl:template>
+    </xsl:template>-->
 
 
     <xsl:template match="description">
         <xsl:value-of select="normalize-space(text())"/>
     </xsl:template>
+    
     <!-- Weiterlesen Verlinkungen aus der Description entfernen... -->
     <xsl:template match="description/a[contains(lower-case(text()), 'weiterlesen')]"> </xsl:template>
 
@@ -69,50 +74,68 @@
     <xsl:template match="content//br">
         <br/>
     </xsl:template>
+    
+    <xsl:template match="text()">
+        <xsl:value-of select="normalize-space(.)"/>
+    </xsl:template>
+    
     <!--<xsl:template match="content/p[count(child::*) = 1]/em"> 
         <ABS-KURSIV><xsl:value-of select="replace(text()[contains(., 'Viola')],'Viola C. Didier','Online-Redaktion')"/></ABS-KURSIV>
     </xsl:template>-->
+    
     <xsl:template match="content//em">
         <ABS-KURSIV>
             <xsl:apply-templates/>
         </ABS-KURSIV>
     </xsl:template>
+    
     <xsl:template match="content//li">
         <xsl:apply-templates/>
     </xsl:template>
+    
     <xsl:template match="content//ul">
+        <xsl:text>&#xa;</xsl:text>
         <MEL-LISTE>
             <xsl:apply-templates/>
         </MEL-LISTE>
     </xsl:template>
+    
     <xsl:template match="content//ol">
+        <xsl:text>&#xa;</xsl:text>
         <MEL-LISTE-NUM>
             <xsl:apply-templates/>
         </MEL-LISTE-NUM>
     </xsl:template>
+    
     <xsl:template match="content/p[not(count(child::*)=1 and child::*[name()=('strong')])]">
         <xsl:choose>
-            <xsl:when test=".[preceding-sibling::*[1][name()=('ul','ol') or (name()='p' and count(child::*)=1 and child::strong)]]">
+            <xsl:when test="(.[preceding-sibling::*[1][name()=('ul','ol') or (name()='p' and count(child::*)=1 and child::strong)]]) or not(following-sibling::p)">
+                <xsl:text>&#xa;</xsl:text>
                 <ABS>
                     <xsl:apply-templates/>
                 </ABS>
             </xsl:when>
             <xsl:otherwise>
+                <xsl:text>&#xa;</xsl:text>
                 <ABS-EINZUG>
                     <xsl:apply-templates/>
                 </ABS-EINZUG>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+    
     <xsl:template match="content/p[count(child::*)=1 and child::*[name()=('strong')]]">
         <xsl:apply-templates/>
     </xsl:template>
+    
     <xsl:template match="content//strong[not(parent::p[count(child::*) = 1])]">
         <ABS-FETT>
             <xsl:apply-templates/>
         </ABS-FETT>
     </xsl:template>
+    
     <xsl:template match="content/p[count(child::*) = 1]/strong">
+        <xsl:text>&#xa;</xsl:text>
         <ZWI>
             <ABS_GRÜN>
                 <xsl:apply-templates/>

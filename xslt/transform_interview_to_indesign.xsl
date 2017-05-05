@@ -1,8 +1,6 @@
 <?xml version="1.0"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="#all" version="2.0">
 
-    <!--<xsl:param name="testparam" required="yes"/>-->
-
     <xsl:output encoding="UTF-8" indent="no"/>
     
     <xsl:param name="zeitraumOderDieLetztenX" required="yes"/>
@@ -11,6 +9,7 @@
     <xsl:param name="endDate"/>
 
     <xsl:template match="/">
+        <xsl:text>&#xa;</xsl:text>
         <indesign>
             <xsl:choose>
                 <xsl:when test="$zeitraumOderDieLetztenX = 'dieLetztenXItems'">
@@ -24,19 +23,24 @@
                     <xsl:apply-templates select="rss/channel/item[(format-number(number(replace(meldung_erstellungsdatum,'-','')),'#') &lt;= $bereinigtes_endDate ) and (format-number(number(replace(meldung_erstellungsdatum,'-','')),'#') &gt;= $bereinigtes_startDate) ]"/>
                 </xsl:otherwise>
             </xsl:choose>
+            <xsl:text>&#xa;</xsl:text>
         </indesign>
     </xsl:template>
 
     <xsl:template match="item">
+        <xsl:text>&#xa;</xsl:text>
         <TITEL-2SP-ZENTR>
             <xsl:value-of select="title"/>
         </TITEL-2SP-ZENTR>
+        <xsl:text>&#xa;</xsl:text>
         <ABSTRACT-ZENTR>
             <xsl:value-of select="description"/>
         </ABSTRACT-ZENTR>
+        <xsl:text>&#xa;</xsl:text>
         <VORNAME>
             <xsl:value-of select="interviewpartnert"/>
         </VORNAME>
+        <xsl:text>&#xa;</xsl:text>
         <BIO-ZENTRIERT>
             <xsl:value-of select="content/p[1]/strong"/>
         </BIO-ZENTRIERT>
@@ -47,11 +51,13 @@
     <xsl:template match="content/p">
         <xsl:choose>
             <xsl:when test=".[count(child::*)=1 and strong]">
+                <xsl:text>&#xa;</xsl:text>
                 <INT-FRAGE>
                     <xsl:apply-templates/>
                 </INT-FRAGE>
             </xsl:when>
             <xsl:otherwise>
+                <xsl:text>&#xa;</xsl:text>
                 <INT-ANTWORT>
                     <xsl:apply-templates/>
                 </INT-ANTWORT>
@@ -88,16 +94,19 @@
     </xsl:template>
 
     <xsl:template match="li">
+        <xsl:if test="preceding-sibling::li"><xsl:text>&#xa;</xsl:text></xsl:if>
         <li>
             <xsl:apply-templates/>
         </li>
     </xsl:template>
     <xsl:template match="ul">
+        <xsl:text>&#xa;</xsl:text>
         <MEL-LISTE>
             <xsl:apply-templates/>
         </MEL-LISTE>
     </xsl:template>
     <xsl:template match="ol">
+        <xsl:text>&#xa;</xsl:text>
         <MEL-LISTE-NUM>
             <xsl:apply-templates/>
         </MEL-LISTE-NUM>

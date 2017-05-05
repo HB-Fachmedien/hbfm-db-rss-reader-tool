@@ -90,28 +90,6 @@ $('#start-button').on('click', function(event) {
 
 });
 
-// $('#test-button').on('click', function(event) {
-//     event.preventDefault();
-//     //rssreader.test();
-//     //alert("test");
-
-//     readAllInputs();
-
-//     let transformationArgs = { // muss direkt nach dem readInputs gefüllt werden
-//         welcherNachrichtenTyp: welcherNachrichtenTyp,
-//         dieLetztenWieviele: dieLetztenWieviele,
-//         welchesRessort: welchesRessort,
-//         zeitraumOderDieLetztenX: zeitraumOderDieLetztenX,
-//         startDate: startDate,
-//         endDate: endDate,
-//         dieLetztenWieviele: dieLetztenWieviele
-//     }
-
-//     trans.executeTransformation(transformationArgs).then(function() {
-//         console.log("Transformation wurde ausgeführt.");
-//     });
-// });
-
 $('.datepicker-start, .datepicker-end').pickadate({
     selectMonths: true, // Creates a dropdown to control month
     selectYears: 2, // Creates a dropdown of 15 years to control year
