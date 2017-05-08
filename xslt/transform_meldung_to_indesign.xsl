@@ -5,6 +5,7 @@
     <xsl:param name="dieLetztenWieviele"/>
     <xsl:param name="startDate"/>
     <xsl:param name="endDate"/>
+    <xsl:param name="welchesRessort"/>
 
 
     <xsl:output method="xml" encoding="UTF-8" indent="no"/>
@@ -20,8 +21,15 @@
                     <!-- Zeitraum wurde angegeben: -->
                     <xsl:variable name="bereinigtes_startDate" select="format-number(number(concat(tokenize($startDate, '\.')[3], tokenize($startDate, '\.')[2], tokenize($startDate, '\.')[1])),'#')"/>
                     <xsl:variable name="bereinigtes_endDate" select="format-number(number(concat(tokenize($endDate, '\.')[3], tokenize($endDate, '\.')[2], tokenize($endDate, '\.')[1])),'#')"/>
+                    
+                    <xsl:variable name="rules" select="'&lt; Betriebswirtschaft &lt; Steuerrecht &lt; Arbeitsrecht &lt; Wirtschaftsrecht'" />
 
-                    <xsl:apply-templates select="rss/channel/item[(format-number(number(replace(meldung_erstellungsdatum,'-','')),'#') &lt;= $bereinigtes_endDate ) and (format-number(number(replace(meldung_erstellungsdatum,'-','')),'#') &gt;= $bereinigtes_startDate) ]"/>
+                    <xsl:apply-templates select="rss/channel/item[(format-number(number(replace(meldung_erstellungsdatum,'-','')),'#') &lt;= $bereinigtes_endDate ) and (format-number(number(replace(meldung_erstellungsdatum,'-','')),'#') &gt;= $bereinigtes_startDate) ]">
+                        <!--<xsl:if test="welchesRessort = 'Alle'">-->
+                            <xsl:sort select="category[not(text()='Meldung')]/text()"
+                                collation="http://saxon.sf.net/collation?rules={encode-for-uri($rules)}"/>
+                        <!--</xsl:if>-->
+                    </xsl:apply-templates>
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:text>&#xa;</xsl:text>
@@ -69,8 +77,8 @@
                 </ABS-KURSIV>
             </xsl:otherwise>
         </xsl:choose>
-
     </xsl:template>
+    
     <xsl:template match="content//br">
         <br/>
     </xsl:template>
