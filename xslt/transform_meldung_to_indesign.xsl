@@ -22,7 +22,7 @@
                     <xsl:variable name="bereinigtes_startDate" select="format-number(number(concat(tokenize($startDate, '\.')[3], tokenize($startDate, '\.')[2], tokenize($startDate, '\.')[1])),'#')"/>
                     <xsl:variable name="bereinigtes_endDate" select="format-number(number(concat(tokenize($endDate, '\.')[3], tokenize($endDate, '\.')[2], tokenize($endDate, '\.')[1])),'#')"/>
                     
-                    <xsl:variable name="rules" select="'&lt; Betriebswirtschaft &lt; Steuerrecht &lt; Arbeitsrecht &lt; Wirtschaftsrecht'" />
+                    <xsl:variable name="rules" select="'&lt; Betriebswirtschaft &lt; Steuerrecht &lt; Wirtschaftsrecht &lt; Arbeitsrecht'" />
 
                     <xsl:apply-templates select="rss/channel/item[(format-number(number(replace(meldung_erstellungsdatum,'-','')),'#') &lt;= $bereinigtes_endDate ) and (format-number(number(replace(meldung_erstellungsdatum,'-','')),'#') &gt;= $bereinigtes_startDate) ]">
                         <!--<xsl:if test="welchesRessort = 'Alle'">-->
