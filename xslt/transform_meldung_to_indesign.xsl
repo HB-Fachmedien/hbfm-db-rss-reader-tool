@@ -7,7 +7,6 @@
     <xsl:param name="endDate"/>
     <xsl:param name="welchesRessort"/>
 
-
     <xsl:output method="xml" encoding="UTF-8" indent="no"/>
 
     <xsl:template match="/">
@@ -52,13 +51,6 @@
         <xsl:apply-templates select="content/*[position()>1]"/>
     </xsl:template>
 
-    <!--<xsl:template match="node()">
-        <xsl:copy>
-            <xsl:apply-templates select="node()"/>
-        </xsl:copy>
-    </xsl:template>-->
-
-
     <xsl:template match="description">
         <xsl:value-of select="normalize-space(text())"/>
     </xsl:template>
@@ -85,11 +77,16 @@
     
     <xsl:template match="text()">
         <xsl:value-of select="normalize-space(.)"/>
+        <xsl:choose>
+            <!-- Im letzten Abschnitt soll eine Textersetzung stattfinden: -->
+            <xsl:when test="parent::em[parent::p[count(child::*)=1 and parent::content]]">
+                <xsl:value-of select="normalize-space(replace(.,'Viola C. Didier','Online-Redaktion'))"/>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="normalize-space(.)"/>        
+            </xsl:otherwise>
+        </xsl:choose>
     </xsl:template>
-    
-    <!--<xsl:template match="content/p[count(child::*) = 1]/em"> 
-        <ABS-KURSIV><xsl:value-of select="replace(text()[contains(., 'Viola')],'Viola C. Didier','Online-Redaktion')"/></ABS-KURSIV>
-    </xsl:template>-->
     
     <xsl:template match="content//em">
         <ABS-KURSIV>
