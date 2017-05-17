@@ -1,45 +1,75 @@
 <?xml version="1.0"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" exclude-result-prefixes="#all" version="2.0">
-
+    
     <xsl:param name="zeitraumOderDieLetztenX" required="yes"/>
     <xsl:param name="dieLetztenWieviele"/>
     <xsl:param name="startDate"/>
     <xsl:param name="endDate"/>
     <xsl:param name="welchesRessort"/>
-
+    
     <xsl:output method="xml" encoding="UTF-8" indent="no"/>
-
+    
+    <xsl:variable name="bereinigtes_startDate">
+        <xsl:choose>
+            <xsl:when test="not($startDate = '')">
+                <xsl:value-of select="format-number(number(concat(tokenize($startDate, '\.')[3], tokenize($startDate, '\.')[2], tokenize($startDate, '\.')[1])),'#')"/>
+            </xsl:when>
+            <xsl:otherwise></xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="bereinigtes_endDate">
+        <xsl:choose>
+            <xsl:when test="not($endDate = '')">
+                <xsl:value-of select="format-number(number(concat(tokenize($endDate, '\.')[3], tokenize($endDate, '\.')[2], tokenize($endDate, '\.')[1])),'#')"/>
+            </xsl:when>
+            <xsl:otherwise></xsl:otherwise>
+        </xsl:choose>
+    </xsl:variable>
+    
+    <xsl:variable name="rules" select="'&lt; Betriebswirtschaft &lt; Steuerrecht &lt; Wirtschaftsrecht &lt; Arbeitsrecht'" />
+    
     <xsl:template match="/">
         <xsl:text>&#xa;</xsl:text>
         <indesign>
             <xsl:choose>
                 <xsl:when test="$zeitraumOderDieLetztenX = 'dieLetztenXItems'">
-                    <xsl:apply-templates select="rss/channel/item[position() &lt;= number($dieLetztenWieviele)]"/>
+                    <xsl:apply-templates select="rss/channel/item[position() &lt;= number($dieLetztenWieviele)]">
+                        <xsl:sort select="category[not(text()='Meldung')]/text()"
+                            collation="http://saxon.sf.net/collation?rules={encode-for-uri($rules)}"/>
+                    </xsl:apply-templates>
                 </xsl:when>
                 <xsl:otherwise>
                     <!-- Zeitraum wurde angegeben: -->
-                    <xsl:variable name="bereinigtes_startDate" select="format-number(number(concat(tokenize($startDate, '\.')[3], tokenize($startDate, '\.')[2], tokenize($startDate, '\.')[1])),'#')"/>
-                    <xsl:variable name="bereinigtes_endDate" select="format-number(number(concat(tokenize($endDate, '\.')[3], tokenize($endDate, '\.')[2], tokenize($endDate, '\.')[1])),'#')"/>
-                    
-                    <xsl:variable name="rules" select="'&lt; Betriebswirtschaft &lt; Steuerrecht &lt; Wirtschaftsrecht &lt; Arbeitsrecht'" />
-
                     <xsl:apply-templates select="rss/channel/item[(format-number(number(replace(meldung_erstellungsdatum,'-','')),'#') &lt;= $bereinigtes_endDate ) and (format-number(number(replace(meldung_erstellungsdatum,'-','')),'#') &gt;= $bereinigtes_startDate) ]">
-                        <!--<xsl:if test="welchesRessort = 'Alle'">-->
-                            <xsl:sort select="category[not(text()='Meldung')]/text()"
-                                collation="http://saxon.sf.net/collation?rules={encode-for-uri($rules)}"/>
-                        <!--</xsl:if>-->
+                        <xsl:sort select="category[not(text()='Meldung')]/text()"
+                            collation="http://saxon.sf.net/collation?rules={encode-for-uri($rules)}"/>
                     </xsl:apply-templates>
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:text>&#xa;</xsl:text>
         </indesign>
     </xsl:template>
-
+    
     <xsl:template match="item">
+        <xsl:variable name="items_kategorie" select="category[not(text() = 'Meldung')]/text()"/>
         <xsl:text>&#xa;</xsl:text>
-        <MEL-RUBRIK>
-            <xsl:value-of select="category[not(text() = 'Meldung')]"/>
-        </MEL-RUBRIK>
+        <xsl:choose>
+            <!-- Falls alle Ressorts durchsucht werden und ein Zeitintervall angegeben wurde -->
+            <xsl:when test="$zeitraumOderDieLetztenX = 'itemAusInterval' and (deep-equal(//item[(format-number(number(replace(meldung_erstellungsdatum,'-','')),'#') &lt;= $bereinigtes_endDate ) and (format-number(number(replace(meldung_erstellungsdatum,'-','')),'#') &gt;= $bereinigtes_startDate) ][category[text()=$items_kategorie]][1], .))">
+                <MEL-RUBRIK>
+                    <xsl:value-of select="$items_kategorie"/>
+                </MEL-RUBRIK>        
+            </xsl:when>
+            <xsl:when test="$zeitraumOderDieLetztenX = 'dieLetztenXItems' and (deep-equal(//item[position() &lt;= number($dieLetztenWieviele)][category[text()=$items_kategorie]][1], .))">
+                <MEL-RUBRIK>
+                    <xsl:value-of select="$items_kategorie"/>
+                </MEL-RUBRIK>
+            </xsl:when>
+            <xsl:otherwise>
+                <MEL-TITEL-ABSATZLINIE/>
+            </xsl:otherwise>
+        </xsl:choose>
+        
         <xsl:text>&#xa;</xsl:text>
         <MEL-TITEL>
             <xsl:value-of select="title"/>
@@ -50,14 +80,14 @@
         </MEL-ABSTRACT>
         <xsl:apply-templates select="content/*[position()>1]"/>
     </xsl:template>
-
+    
     <xsl:template match="description">
         <xsl:value-of select="normalize-space(text())"/>
     </xsl:template>
     
     <!-- Weiterlesen Verlinkungen aus der Description entfernen... -->
     <xsl:template match="description/a[contains(lower-case(text()), 'weiterlesen')]"> </xsl:template>
-
+    
     <xsl:template match="content//a">
         <xsl:choose>
             <xsl:when test="parent::em">
@@ -147,5 +177,5 @@
             </ABS_GRÜN>
         </ZWI>
     </xsl:template>
-
+    
 </xsl:stylesheet>
