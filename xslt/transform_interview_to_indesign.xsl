@@ -56,6 +56,13 @@
                     <xsl:apply-templates/>
                 </INT-FRAGE>
             </xsl:when>
+            <!-- die letzten beiden Interview Zeilen enthalten keine Fragen/Antworten mehr: -->
+            <xsl:when test=".[count(following-sibling::p) &lt; 2]">
+                <xsl:text>&#xa;</xsl:text>
+                <ABS>
+                    <xsl:apply-templates/>
+                </ABS>
+            </xsl:when>
             <xsl:otherwise>
                 <xsl:text>&#xa;</xsl:text>
                 <INT-ANTWORT>
