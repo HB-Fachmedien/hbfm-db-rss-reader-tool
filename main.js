@@ -7,7 +7,7 @@ const BrowserWindow = electron.BrowserWindow
 
 const path = require('path')
 const url = require('url')
-
+const ipc = electron.ipcMain;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -34,6 +34,21 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+
+  // Identify System Proxy
+  ipc.on('proxy-request', (event, arg) => {
+    console.log("proxy-request empfangen");
+    const ses = mainWindow.webContents.session;
+    ses.resolveProxy("https://www.der-betrieb.de", function(proxy){
+      // die resolveProxy Funktion gibt einen String in der Form PROXY <<proxyURL>> zurück:
+      // der String wird dann passend gekürzt:
+      let pattern = /PROXY\s/g;
+      proxy = proxy.replace(pattern,'');
+      console.log("URL resolved: ", proxy);
+      event.sender.send('proxy-response', proxy);
+    })
+    
+  });
 }
 
 // This method will be called when Electron has finished

@@ -4,12 +4,22 @@
 
 var rssReaderModule = require('./app/myRssReader.js');
 var transformationsModule = require('./app/startTransformation.js')
+const ipc = require('electron').ipcRenderer;
 
 var rssreader = new rssReaderModule();
 var trans = new transformationsModule();
 var fs = require('fs');
 
 console.log("Los gehts...");
+
+let proxy = '';
+// request Proxy URL:
+ipc.send('proxy-request', 'Hello');
+ipc.on('proxy-response', (event, arg) => {
+  const message = `Antwort: ${arg}`
+  console.log(message);
+  proxy = arg;
+})
 
 $('#loader').hide();
 
@@ -70,9 +80,8 @@ $('#start-button').on('click', function(event) {
         endDate: endDate,
         dieLetztenWieviele: dieLetztenWieviele
     }
-
     
-    rssreader.leseFeed("https://www.der-betrieb.de/feed/?cat=" + ressortNumber).then(function() {
+    rssreader.leseFeed("https://www.der-betrieb.de/feed/?cat=" + ressortNumber, proxy).then(function() {
         console.log("Datei erstellt... Promise Rückgabe");
 
         // konvertiereFeedDatei()

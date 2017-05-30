@@ -11,25 +11,29 @@ var myRssReader = function(){
 
 	var stream;
 
-	this.leseFeed = function(uri){
+	this.leseFeed = function(uri, proxy){
 		let urlTest = 'https://www.der-betrieb.de/feed/?cat=27';
 		// https://www.der-betrieb.de/category/interview/feed/atom/
 		// gesamter Feed: https://www.der-betrieb.de/feed/?cat=11
 		// Interviews: cat=28
 		
-	    console.log("Feed wird gelesen...");
+	    console.log("Feed wird gelesen... Proxy lautet: " + proxy);
 
 	    return new Promise(function (fulfill, reject){
-		    // fs.readFile(filename, enc, function (err, res){
-		    //   if (err) reject(err);
-		    //   else fulfill(res);
-		    // });
+
+		    // Der VHB Proxy lautet proxy.vhb.de:80, benötigt aber für den Dateidownload den Protokoll Prefix
+		    let proxystring = proxy.includes("http") ? proxy : "http://"+proxy;
+
+		    console.log("Proxy Vergleich:")
+		    console.log("NPM Proxy: " + process.env.npm_config_proxy)
+		    console.log("Request Proxy: " + proxy)
 		    var writable = fs.createWriteStream("./output/rss.xml");
 		    stream = request.get({
 		        uri: uri,
 		        encoding: null,
 		        //proxy: "http://proxy.vhb.de"
-		        proxy: process.env.npm_config_proxy
+		        //proxy: process.env.npm_config_proxy
+		        proxy : proxystring
 		    }).on('response', function(response) {
 		        console.log("code:", response.statusCode);
 		        if (response.statusCode >= 500) {
