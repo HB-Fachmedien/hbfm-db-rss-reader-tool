@@ -1,4 +1,5 @@
 var exec = require('child_process').exec;
+const log = require('electron-log'); 
 
 var Transformation = function() {
 
@@ -7,10 +8,12 @@ var Transformation = function() {
         for (var property in obj) {
             if (obj.hasOwnProperty(property) && (obj[property] !== undefined) && (obj[property] !== '')) {
                 console.log("property: " + property + " wert: " + obj[property]);
+                log.warn("property: " + property + " wert: " + obj[property]);
                 r += property + '=' + obj[property].toString() + ' ';
             }
         }
         console.log("Res: " + r);
+        log.warn("Res: " + r);
         return r;
     }
 
@@ -25,6 +28,7 @@ var Transformation = function() {
         cmd = 'java -jar ./saxon9he.jar -s:./output/rss.xml -xsl:./xslt/' + xslFile + convertArgs(paramterObject) + ' -o:./output/indesign.xml ';
 
         console.log("Transformation wird ausgeführt. Befehl: " + cmd);
+        log.warn("Transformation wird ausgeführt. Befehl: " + cmd);
 
         return new Promise(function(fulfill, reject) {
 
@@ -32,10 +36,13 @@ var Transformation = function() {
 
                 if (error) {
                     console.dir(error);
+                    log.error(error);
                     reject(error);
                 }
-                if (stdout)
+                if (stdout){
                     console.log("Output: " + stdout);
+                    log.warn("Output: " + stdout);
+                }
             });
 
             childproc.on('close', function(e) {

@@ -3,11 +3,9 @@ var http = require('https');
 var request = require('request');
 var replace = require('stream-replace');
 
-var myRssReader = function(){
+const log = require('electron-log'); 
 
-	this.test = function(){
-		console.log(" klappt klappt");
-	};
+var myRssReader = function(){
 
 	var stream;
 
@@ -18,15 +16,21 @@ var myRssReader = function(){
 		// Interviews: cat=28
 		
 	    console.log("Feed wird gelesen... Proxy lautet: " + proxy);
+	    log.warn("Feed wird gelesen... Proxy lautet: " + proxy);
 
 	    return new Promise(function (fulfill, reject){
 
 		    // Der VHB Proxy lautet proxy.vhb.de:80, benötigt aber für den Dateidownload den Protokoll Prefix
 		    let proxystring = proxy.includes("http") ? proxy : "http://"+proxy;
 
-		    console.log("Proxy Vergleich:")
-		    console.log("NPM Proxy: " + process.env.npm_config_proxy)
-		    console.log("Request Proxy: " + proxy)
+		    console.log("Proxy Vergleich:");
+		    console.log("NPM Proxy: " + process.env.npm_config_proxy);
+		    console.log("Request Proxy: " + proxy);
+
+		    log.warn("Proxy Vergleich:");
+		    log.warn("NPM Proxy: " + process.env.npm_config_proxy);
+		    log.warn("Request Proxy: " + proxy);
+
 		    var writable = fs.createWriteStream("./output/rss.xml");
 		    stream = request.get({
 		        uri: uri,
@@ -36,8 +40,10 @@ var myRssReader = function(){
 		        proxy : proxystring
 		    }).on('response', function(response) {
 		        console.log("code:", response.statusCode);
+		        log.warn("code:", response.statusCode);
 		        if (response.statusCode >= 500) {
 		            console.err(response.statusCode, " Servererror");
+		            log.warn(response.statusCode, " Servererror");
 		            reject(response.statusCode);
 		        }
 		    }).pipe(replace(/\<!\[CDATA\[/g, '')).pipe(replace(/\]\]\>/g, '')).pipe(replace(/\&nbsp;/g, ''))
@@ -45,6 +51,7 @@ var myRssReader = function(){
 		    stream.on('finish', function () {
 		    	fulfill(true);
 				console.log("Datei erstellt!");
+				log.warn("Datei erstellt!");
 			});
 
 		  });

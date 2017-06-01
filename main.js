@@ -9,6 +9,17 @@ const path = require('path')
 const url = require('url')
 const ipc = electron.ipcMain;
 
+const log = require('electron-log');
+log.transports.file.maxSize = 2 * 1024 * 1024;
+ 
+// Write to this file, must be set before first logging 
+log.transports.file.file = './log.txt';
+ 
+// fs.createWriteStream options, must be set before first logging 
+log.transports.file.streamConfig = { flags: 'w' };
+
+
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
@@ -45,6 +56,7 @@ function createWindow () {
       let pattern = /PROXY\s/g;
       proxy = proxy.replace(pattern,'');
       console.log("URL resolved: ", proxy);
+      log.warn("URL resolved: ", proxy);
       event.sender.send('proxy-response', proxy);
     })
     
@@ -72,6 +84,11 @@ app.on('activate', function () {
     createWindow()
   }
 })
+
+process.on('uncaughtException', (err) => {
+  log.error('Uncaught Exception:');
+  log.error(err);
+});
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.

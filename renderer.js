@@ -10,7 +10,11 @@ var rssreader = new rssReaderModule();
 var trans = new transformationsModule();
 var fs = require('fs');
 
+const log = require('electron-log'); 
+
+
 console.log("Los gehts...");
+log.warn("Los gehts...");
 
 let proxy = '';
 // request Proxy URL:
@@ -47,6 +51,7 @@ $('#start-button').on('click', function(event) {
         return false;
     }
     console.log("Ergebnis der Input Validation: " + inputsOk);
+    log.warn("Ergebnis der Input Validation: " + inputsOk);
 
     // leseFeed()
     let ressortNumber;
@@ -83,10 +88,12 @@ $('#start-button').on('click', function(event) {
     
     rssreader.leseFeed("https://www.der-betrieb.de/feed/?cat=" + ressortNumber, proxy).then(function() {
         console.log("Datei erstellt... Promise Rückgabe");
+        log.warn("Datei erstellt... Promise Rückgabe");
 
         // konvertiereFeedDatei()
         trans.executeTransformation(transformationArgs).then(function() {
             console.log("Transformation wurde ausgeführt.");
+            log.warn("Transformation wurde ausgeführt.");
 
             $('#start-button').removeClass('disabled');
             $( "#loader" ).toggle();
@@ -125,6 +132,7 @@ var readAllInputs = function() {
     endDate = $('#end_interval_date').val();
     dieLetztenWieviele = $('select[id=dieLetztenWieviele] option:selected').text();
     console.log(welcherNachrichtenTyp, welchesRessort, zeitraumOderDieLetztenX, startDate, endDate, dieLetztenWieviele);
+    log.warn(welcherNachrichtenTyp, welchesRessort, zeitraumOderDieLetztenX, startDate, endDate, dieLetztenWieviele);
 }
 
 var validateInputs = function() {
