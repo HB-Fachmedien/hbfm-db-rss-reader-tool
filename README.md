@@ -1,6 +1,27 @@
-# hbfm-db-rss-reader-tool
+# hbfm-db-rss-reader-tool - Der Betrieb Online Meldungen für den Printprozess vorbereiten
 
-## Install Bug
+## Nutzer Infos:
+
+### Vorbereitungen:
+
+** Es muss eine Java JRE installiert sein und falls nicht schon vorhanden muss die JAR Datei der kostenlosen Saxon Home Edition im Anwendungsordner liegen: http://saxon.sourceforge.net/#F9.7HE
+
+### Anwendung
+* Anwendung starten mit _hbfm-db-rss-reader-tool.exe_
+* Auswählen, ob man Meldungen oder Interviews verarbeiten möchte
+* Bei Meldungen kann man einzelne oder alle Ressorts auswählen
+* Einen Zeitraum angeben aus dem die Interviews/Meldungen stammen sollen oder auswählen die wieviel aktuellsten Interviews/Meldungen verarbeitet werden sollen
+* _XML ERSTELLEN_ Button startet den Abruf und wandelt die Daten in das passende InDesign XML Format
+* Die erstellte InDesign XML Datei findet man im /output Ordner. Sie heißt _indesign.xml_. Diese in InDesign importieren
+
+### Fehlerbehandlung
+* siehe Vorbereitungen
+* Bei jedem Anwendungsaufruf wird eine Logdatei mit dem Namen _log.txt_ erstellt.
+* Diese bitte mit kurzer Fehlerbeschreibung an fz.ep@fachmedien.de schicken.
+
+## Developer Infos:
+
+### Install Bug
 materialize-css hat noch einen Bug zur Zeit. Die Datei picker.js wird ins falsche Verzeichnis kopiert, siehe
 https://github.com/Dogfalo/materialize/issues/3139
 
@@ -8,7 +29,7 @@ richtig wäre "cp node_modules/materialize-css/js/date_picker/picker.js node_mod
 
 ich hoffe, der Bug wird bald bei materialize behoben
 
-## Ausführbare exe Applikation bauen
+### Ausführbare exe Applikation bauen
 ```sh
 $ npm run-script package
 ```
@@ -17,18 +38,8 @@ im /dist Ordner findet sich dann die Produktiv Version.
 > ich weiß nicht, ob ich die package.json fehlerhaft konfiguriert habe oder ob electron-packager gerade buggy ist, es der **node_modules** Ordner wird nicht komplett kopiert sowie saxon.jar und der xsl Ordner müssen noch in den Rootordner verschoben werden
 
 --> ToDo
-
-## To Use
-
-...
+* Output Datei Bennenung
+* fallback Lösung (wie ruft man den feed auf, wie sieht so ein fertiges XML aus?)
 
 **Build with Electron**
 Learn more about Electron and its API in the [documentation](http://electron.atom.io/docs/latest).
-
-## dev links:
-
-https://beta.der-betrieb.de/dachportal/feed/?cat=11
-
-https://beta.der-betrieb.de/dachportal/meldungen/test123/
-
-https://www.der-betrieb.de/category/meldungen/feed/
