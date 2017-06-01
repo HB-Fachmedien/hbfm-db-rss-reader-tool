@@ -41,15 +41,15 @@ $('#start-button').on('click', function(event) {
 
     // validateIfJavaAndSaxonIsInstalled()
 
-    $('#start-button').addClass('disabled');
-    $( "#loader" ).toggle();
-
-
     let inputsOk = validateInputs();
     if (inputsOk !== "Alle Input Felder ok") {
         alert(inputsOk);
         return false;
     }
+
+    $( "#loader" ).toggle();
+    $('#start-button').addClass('disabled');
+
     console.log("Ergebnis der Input Validation: " + inputsOk);
     log.warn("Ergebnis der Input Validation: " + inputsOk);
 
