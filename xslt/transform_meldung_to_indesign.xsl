@@ -58,22 +58,26 @@
             <xsl:when test="$zeitraumOderDieLetztenX = 'itemAusInterval' and (deep-equal(//item[(format-number(number(replace(meldung_erstellungsdatum,'-','')),'#') &lt;= $bereinigtes_endDate ) and (format-number(number(replace(meldung_erstellungsdatum,'-','')),'#') &gt;= $bereinigtes_startDate) ][category[text()=$items_kategorie]][1], .))">
                 <MEL-RUBRIK>
                     <xsl:value-of select="$items_kategorie"/>
-                </MEL-RUBRIK>        
+                </MEL-RUBRIK>
+                <xsl:text>&#xa;</xsl:text>
+                <MEL-TITEL>
+                    <xsl:value-of select="title"/>
+                </MEL-TITEL>
             </xsl:when>
             <xsl:when test="$zeitraumOderDieLetztenX = 'dieLetztenXItems' and (deep-equal(//item[position() &lt;= number($dieLetztenWieviele)][category[text()=$items_kategorie]][1], .))">
                 <MEL-RUBRIK>
                     <xsl:value-of select="$items_kategorie"/>
                 </MEL-RUBRIK>
+                <xsl:text>&#xa;</xsl:text>
+                <MEL-TITEL>
+                    <xsl:value-of select="title"/>
+                </MEL-TITEL>
             </xsl:when>
             <xsl:otherwise>
-                <MEL-TITEL-ABSATZLINIE/>
+                <MEL-TITEL-ABSATZLINIE><xsl:value-of select="title"/></MEL-TITEL-ABSATZLINIE>
             </xsl:otherwise>
         </xsl:choose>
         
-        <xsl:text>&#xa;</xsl:text>
-        <MEL-TITEL>
-            <xsl:value-of select="title"/>
-        </MEL-TITEL>
         <xsl:text>&#xa;</xsl:text>
         <MEL-ABSTRACT>
             <xsl:apply-templates select="description"/>
@@ -106,7 +110,6 @@
     </xsl:template>
     
     <xsl:template match="text()">
-        <xsl:value-of select="normalize-space(.)"/>
         <xsl:choose>
             <!-- Im letzten Abschnitt soll eine Textersetzung stattfinden: -->
             <xsl:when test="parent::em[parent::p[count(child::*)=1 and parent::content]]">
@@ -124,8 +127,11 @@
         </ABS-KURSIV>
     </xsl:template>
     
-    <xsl:template match="content//li">
-        <xsl:apply-templates/>
+    <xsl:template match="li">
+        <xsl:if test="preceding-sibling::li"><xsl:text>&#xa;</xsl:text></xsl:if>
+        <li>
+            <xsl:apply-templates/>
+        </li>
     </xsl:template>
     
     <xsl:template match="content//ul">
@@ -144,7 +150,8 @@
     
     <xsl:template match="content/p[not(count(child::*)=1 and child::*[name()=('strong')])]">
         <xsl:choose>
-            <xsl:when test="(.[preceding-sibling::*[1][name()=('ul','ol') or (name()='p' and count(child::*)=1 and child::strong)]]) or not(following-sibling::p)">
+            <!-- Eingerückte Absätze immer, nur nicht nach Listen oder Zwischenüberschriften -->
+            <xsl:when test="((.[preceding-sibling::*[1][name()=('ul','ol') or (name()='p' and count(child::*)=1 and child::strong)]]) or not(following-sibling::p)) and count(preceding-sibling::p) &gt; 1">
                 <xsl:text>&#xa;</xsl:text>
                 <ABS>
                     <xsl:apply-templates/>
@@ -172,9 +179,10 @@
     <xsl:template match="content/p[count(child::*) = 1]/strong">
         <xsl:text>&#xa;</xsl:text>
         <ZWI>
-            <ABS_GRÜN>
+            <!-- ABS_GRÜN ist verworfen worden -->
+            <!--<ABS_GRÜN>-->
                 <xsl:apply-templates/>
-            </ABS_GRÜN>
+            <!--</ABS_GRÜN>-->
         </ZWI>
     </xsl:template>
     
