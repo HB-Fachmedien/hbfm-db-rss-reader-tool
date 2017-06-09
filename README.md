@@ -40,6 +40,7 @@ im /dist Ordner findet sich dann die Produktiv Version.
 --> ToDo
 * Output Datei Bennenung
 * fallback Lösung (wie ruft man den feed auf, wie sieht so ein fertiges XML aus?)
+* Beispiel Dateien noch erläutern
 
 **Build with Electron**
 Learn more about Electron and its API in the [documentation](http://electron.atom.io/docs/latest).

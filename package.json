@@ -3,6 +3,10 @@
   "version": "0.2.0",
   "description": "Konvertiert Meldungen und Interviews von www.der-betrieb.de in XML, das in InDesign importiert werden kann",
   "main": "main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HB-Fachmedien/hbfm-db-rss-reader-tool"
+  },
   "scripts": {
     "start": "electron .",
     "package": "electron-packager . hbfm-db-rss-reader-tool --platform=win32 --arch=x64 --out ./dist --overwrite --icon=./favicon_hbfm.ico"
