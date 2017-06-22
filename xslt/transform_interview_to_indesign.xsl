@@ -37,9 +37,11 @@
             <xsl:value-of select="description"/>
         </ABSTRACT-ZENTR>
         <xsl:text>&#xa;</xsl:text>
-        <VORNAME>
-            <xsl:value-of select="interviewpartnert"/>
-        </VORNAME>
+        <BIO-ZENTRIERT>
+            <VORNAME>
+                <xsl:value-of select="interviewpartnert"/>
+            </VORNAME>
+        </BIO-ZENTRIERT>
         <xsl:text>&#xa;</xsl:text>
         <BIO-ZENTRIERT>
             <xsl:value-of select="content/p[1]/strong"/>
