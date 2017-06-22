@@ -32,13 +32,25 @@ var myRssReader = function(){
 		    log.warn("Request Proxy: " + proxy);
 
 		    var writable = fs.createWriteStream("./output/rss.xml");
-		    stream = request.get({
+		    let req_options = {
 		        uri: uri,
 		        encoding: null,
 		        //proxy: "http://proxy.vhb.de"
 		        //proxy: process.env.npm_config_proxy
-		        proxy : proxystring
-		    }).on('response', function(response) {
+		        //proxy : proxystring
+		    };
+
+		    // bei der Mainpost wird 'DIRECT' als Rückgabewert nach dem Proxy geschrieben, das wird hier abgefangen
+		    if (proxystring !== 'DIRECT') {		    	
+		    	req_options.proxy = proxystring;
+		    }
+		    else{
+		    	log.warn("proxystring enthält DIRECT. Es ist also kein Proxy vorhanden.");
+		    }
+		    log.warn("Request Options Objekt:");
+		    log.warn(req_options);
+
+		    stream = request.get(req_options).on('response', function(response) {
 		        console.log("code:", response.statusCode);
 		        log.warn("code:", response.statusCode);
 		        if (response.statusCode >= 500) {
