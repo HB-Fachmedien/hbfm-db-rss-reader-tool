@@ -41,7 +41,7 @@ var myRssReader = function(){
 		    };
 
 		    // bei der Mainpost wird 'DIRECT' als Rückgabewert nach dem Proxy geschrieben, das wird hier abgefangen
-		    if (proxystring !== 'DIRECT') {		    	
+		    if (proxystring.indexOf('DIRECT') == -1) {		    	
 		    	req_options.proxy = proxystring;
 		    }
 		    else{
