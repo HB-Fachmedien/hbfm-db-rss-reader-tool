@@ -37,7 +37,16 @@ im /dist Ordner findet sich dann die Produktiv Version.
 > **JEDOCH VORSICHT:**
 > ich weiß nicht, ob ich die package.json fehlerhaft konfiguriert habe oder ob electron-packager gerade buggy ist, es der **node_modules** Ordner wird nicht komplett kopiert sowie saxon.jar und der xsl Ordner müssen noch in den Rootordner verschoben werden
 
---> ToDo
+### Falls der RSS Feed fehlerhaft ist:
+In der Windows PowerShell den RSS Feed ziehen:
+```sh
+$client = new-object System.Net.WebClient
+$client.DownloadFile("https://www.der-betrieb.de/feed","C:\temp\feed.xml")
+
+```
+dann die XSL Transformation manuell starten
+
+### ToDo
 * Output Datei Bennenung
 * fallback Lösung (wie ruft man den feed auf, wie sieht so ein fertiges XML aus?)
 * Beispiel Dateien noch erläutern
