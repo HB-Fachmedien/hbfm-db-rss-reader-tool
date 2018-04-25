@@ -41,10 +41,11 @@ im /dist Ordner findet sich dann die Produktiv Version.
 In der Windows PowerShell den RSS Feed ziehen:
 ```sh
 $client = new-object System.Net.WebClient
-$client.DownloadFile("https://www.der-betrieb.de/feed","C:\temp\feed.xml")
+$client.DownloadFile("https://www.der-betrieb.de/feed/?cat=11","C:\temp\feed.xml")
 
 ```
-dann die XSL Transformation manuell starten
+beachten, dass mittels JavaScript noch die CData Sektionen und die content:encoded Elemente 'replaced' werden.
+dann die XSL Transformation (normalerweise mit den Parametern startDate=DD.MM.YYYY, endDate=DD.MM.YYYY, zeitraumOderDieLetztenX=zeitraum) manuell starten
 
 ### ToDo
 * Output Datei Bennenung
