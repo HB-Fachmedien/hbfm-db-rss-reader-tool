@@ -44,8 +44,8 @@ $client = new-object System.Net.WebClient
 $client.DownloadFile("https://www.der-betrieb.de/feed/?cat=11","C:\temp\feed.xml")
 
 ```
-beachten, dass mittels JavaScript noch die CData Sektionen und die content:encoded Elemente 'replaced' werden.
-dann die XSL Transformation (normalerweise mit den Parametern startDate=DD.MM.YYYY, endDate=DD.MM.YYYY, zeitraumOderDieLetztenX=zeitraum) manuell starten
+Beachten, dass mittels JavaScript noch die CData Sektionen und die content:encoded Elemente 'replaced' werden.  
+Dann die XSL Transformation (normalerweise mit den Parametern startDate=DD.MM.YYYY, endDate=DD.MM.YYYY, zeitraumOderDieLetztenX=zeitraum) manuell starten.
 
 ### ToDo
 * Output Datei Bennenung

@@ -86,7 +86,7 @@
     </xsl:template>
     
     <xsl:template match="description">
-        <xsl:value-of select="normalize-space(text())"/>
+        <xsl:value-of select="normalize-space(./*[text()][1]/text())"/>
     </xsl:template>
     
     <!-- Weiterlesen Verlinkungen aus der Description entfernen... -->
