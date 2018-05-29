@@ -1,7 +1,7 @@
 var fs = require('fs');
 var http = require('https');
 var request = require('request');
-var replace = require('stream-replace');
+var replace = require('replacestream');
 
 const log = require('electron-log'); 
 

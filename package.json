@@ -18,8 +18,9 @@
   "author": "Stefan Maibücher",
   "license": "CC0-1.0",
   "devDependencies": {
+    "electron": "^1.4.1",
     "electron-packager": "^8.7.0",
-    "electron": "^1.4.1"
+    "replacestream": "^4.0.3"
   },
   "dependencies": {
     "electron-log": "^2.2.6",
