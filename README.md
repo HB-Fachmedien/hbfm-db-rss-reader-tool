@@ -1,5 +1,9 @@
 # hbfm-db-rss-reader-tool - Der Betrieb Online Meldungen für den Printprozess vorbereiten
 
+![alt text](hbfm-rss-feed-konverter1.png "Screenshot der Applikation")
+
+![alt text](hbfm-rss-feed-konverter2.png "Screenshot der Applikation")
+
 ## Nutzer Infos:
 
 ### Vorbereitungen:
