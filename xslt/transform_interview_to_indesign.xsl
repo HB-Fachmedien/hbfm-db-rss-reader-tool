@@ -52,7 +52,7 @@
 
     <xsl:template match="content/p">
         <xsl:choose>
-            <xsl:when test=".[count(child::*)=1 and strong]">
+            <xsl:when test="substring(., 1,2) = 'DB'">
                 <xsl:text>&#xa;</xsl:text>
                 <INT-FRAGE>
                     <xsl:apply-templates/>
