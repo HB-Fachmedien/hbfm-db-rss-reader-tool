@@ -7,6 +7,7 @@
     <xsl:param name="dieLetztenWieviele"/>
     <xsl:param name="startDate"/>
     <xsl:param name="endDate"/>
+    <xsl:param name="possiblePubDate" select="'empty'"/>
 
     <xsl:template match="/">
         <xsl:text>&#xa;</xsl:text>
@@ -19,8 +20,16 @@
                     <!-- Zeitraum wurde angegeben: -->
                     <xsl:variable name="bereinigtes_startDate" select="format-number(number(concat(tokenize($startDate, '\.')[3], tokenize($startDate, '\.')[2], tokenize($startDate, '\.')[1])),'#')"/>
                     <xsl:variable name="bereinigtes_endDate" select="format-number(number(concat(tokenize($endDate, '\.')[3], tokenize($endDate, '\.')[2], tokenize($endDate, '\.')[1])),'#')"/>
+                    <xsl:variable name="bereinigtes_possiblePubDate" select="format-number(number(concat(tokenize($possiblePubDate, '\.')[3], tokenize($possiblePubDate, '\.')[2], tokenize($possiblePubDate, '\.')[1])),'#')"/>
                     
-                    <xsl:apply-templates select="rss/channel/item[(format-number(number(replace(meldung_erstellungsdatum,'-','')),'#') &lt;= $bereinigtes_endDate ) and (format-number(number(replace(meldung_erstellungsdatum,'-','')),'#') &gt;= $bereinigtes_startDate) ]"/>
+                    <xsl:choose>
+                        <xsl:when test="count(rss/channel/item[(format-number(number(replace(meldung_erstellungsdatum,'-','')),'#') &lt;= $bereinigtes_endDate ) and (format-number(number(replace(meldung_erstellungsdatum,'-','')),'#') &gt;= $bereinigtes_startDate) ]) = 0">
+                            <xsl:apply-templates select="rss/channel/item[(format-number(number(replace(meldung_erstellungsdatum,'-','')),'#') &lt;= $bereinigtes_possiblePubDate ) and (format-number(number(replace(meldung_erstellungsdatum,'-','')),'#') &gt;= $bereinigtes_possiblePubDate) ]"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <xsl:apply-templates select="rss/channel/item[(format-number(number(replace(meldung_erstellungsdatum,'-','')),'#') &lt;= $bereinigtes_endDate ) and (format-number(number(replace(meldung_erstellungsdatum,'-','')),'#') &gt;= $bereinigtes_startDate) ]"/>        
+                        </xsl:otherwise>
+                    </xsl:choose>
                 </xsl:otherwise>
             </xsl:choose>
             <xsl:text>&#xa;</xsl:text>

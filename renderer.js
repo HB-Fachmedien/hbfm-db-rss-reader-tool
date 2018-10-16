@@ -85,10 +85,34 @@ $('#start-button').on('click', function(event) {
         endDate: endDate,
         dieLetztenWieviele: dieLetztenWieviele
     }
+    if (startDate == endDate) {
+        /* Falls nur von einem Tag eine Meldung gezogen werden soll,
+            dann kann es schon mal vorkommen, dass das Erstelldatum, welches
+            vom XSLT abgefragt wird, nicht mit dem Pub-Datum, welches der
+            Setzer sieht übereinstimmt. Da es in JavaScript einfacher ist, gebe ich
+            in diesem Fall das Datum vom nächsten Tag mit an die Transformation.
+         */
+        let splitted = startDate.split('.')
+        let d = new Date(splitted[2], splitted[1]-1, splitted[0])
+        d.setDate(d.getDate() - 1);
+        
+        let dd = d.getDate();
+        let mm = d.getMonth() + 1; // 0 is January, so we must add 1
+        let yyyy = d.getFullYear();
+
+        dd = (dd < 10)? "0"+dd : dd;
+        mm = (mm < 10)? "0"+mm : mm;
+
+        let dateString = dd + "." + mm + "." + yyyy;
+
+        transformationArgs.possiblePubDate = dateString;
+    }
     
     rssreader.leseFeed("https://www.der-betrieb.de/feed/?cat=" + ressortNumber, proxy).then(function() {
         console.log("Datei erstellt... Promise Rückgabe");
         log.warn("Datei erstellt... Promise Rückgabe");
+
+        log.warn(transformationArgs);
 
         // konvertiereFeedDatei()
         trans.executeTransformation(transformationArgs).then(function() {

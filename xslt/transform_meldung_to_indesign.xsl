@@ -186,4 +186,7 @@
         </ZWI>
     </xsl:template>
     
+    <xsl:template match="h4[@class='otherDocs']">
+    </xsl:template>
+    
 </xsl:stylesheet>
