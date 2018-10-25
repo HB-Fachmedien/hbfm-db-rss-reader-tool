@@ -51,6 +51,11 @@ $client.DownloadFile("https://www.der-betrieb.de/feed/?cat=11","C:\temp\feed.xml
 Beachten, dass mittels JavaScript noch die CData Sektionen und die content:encoded Elemente 'replaced' werden.  
 Dann die XSL Transformation (normalerweise mit den Parametern startDate=DD.MM.YYYY, endDate=DD.MM.YYYY, zeitraumOderDieLetztenX=zeitraum) manuell starten.
 
+Zum Beispiel:
+```sh
+java -jar ./saxon9he.jar -s:./output/rss.xml -xsl:./xslt/transform_interview_to_indesign.xsl welcherNachrichtenTyp=interviews dieLetztenWieviele=1 welchesRessort=Alle zeitraumOderDieLetztenX=dieLetztenXItems possiblePubDate=NaN.NaN.NaN  -o:./output/indesign.xml
+```
+
 ### ToDo
 * Output Datei Bennenung
 * fallback Lösung (wie ruft man den feed auf, wie sieht so ein fertiges XML aus?)
