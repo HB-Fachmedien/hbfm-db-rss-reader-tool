@@ -176,7 +176,8 @@
         </ABS-FETT>
     </xsl:template>
     
-    <xsl:template match="content/p[count(child::*) = 1]/strong">
+    <!--<xsl:template match="content/p[count(child::*) = 1]/strong">--> <!-- alt: Zwischenüberschriften sind ab sofort h2 Elemente -->
+    <xsl:template match="content/h2">
         <xsl:text>&#xa;</xsl:text>
         <ZWI>
             <!-- ABS_GRÜN ist verworfen worden -->
