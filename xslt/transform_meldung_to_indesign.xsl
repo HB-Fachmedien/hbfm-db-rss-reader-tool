@@ -159,9 +159,9 @@
             </xsl:when>
             <xsl:otherwise>
                 <xsl:text>&#xa;</xsl:text>
-                <ABS-EINZUG>
+                <ABS>
                     <xsl:apply-templates/>
-                </ABS-EINZUG>
+                </ABS>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
