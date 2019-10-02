@@ -116,7 +116,7 @@
                 <xsl:value-of select="normalize-space(replace(.,'Viola C. Didier','Online-Redaktion'))"/>
             </xsl:when>
             <xsl:otherwise>
-                <xsl:value-of select="normalize-space(.)"/>        
+                <xsl:value-of select="."/>        
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
@@ -159,9 +159,9 @@
             </xsl:when>
             <xsl:otherwise>
                 <xsl:text>&#xa;</xsl:text>
-                <ABS-EINZUG>
+                <ABS>
                     <xsl:apply-templates/>
-                </ABS-EINZUG>
+                </ABS>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
