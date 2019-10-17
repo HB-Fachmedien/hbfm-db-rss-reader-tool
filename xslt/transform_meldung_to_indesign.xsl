@@ -93,16 +93,7 @@
     <xsl:template match="description/a[contains(lower-case(text()), 'weiterlesen')]"> </xsl:template>
     
     <xsl:template match="content//a">
-        <xsl:choose>
-            <xsl:when test="parent::em">
-                <xsl:apply-templates select="text()"/>
-            </xsl:when>
-            <xsl:otherwise>
-                <ABS-KURSIV>
-                    <xsl:apply-templates select="text()"/>
-                </ABS-KURSIV>
-            </xsl:otherwise>
-        </xsl:choose>
+        <xsl:apply-templates select="text()"/>
     </xsl:template>
     
     <xsl:template match="content//br">
