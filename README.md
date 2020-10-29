@@ -1,4 +1,4 @@
-# hbfm-db-rss-reader-tool - Der Betrieb Online Meldungen für den Printprozess vorbereiten
+# Der Betrieb Online Meldungen für den Printprozess vorbereiten
 
 ![alt text](hbfm-rss-feed-konverter1.png "Screenshot der Applikation")
 
@@ -8,7 +8,7 @@
 
 ### Vorbereitungen:
 
-** Es muss eine Java JRE installiert sein und falls nicht schon vorhanden muss die JAR Datei der kostenlosen Saxon Home Edition im Anwendungsordner liegen: http://saxon.sourceforge.net/#F9.7HE
+** Es muss eine Java JRE installiert sein ** und falls nicht schon vorhanden muss die JAR Datei der kostenlosen Saxon Home Edition im Anwendungsordner liegen: http://saxon.sourceforge.net/#F9.7HE
 
 ### Anwendung
 * Anwendung starten mit _hbfm-db-rss-reader-tool.exe_
