@@ -10,6 +10,18 @@
 
 ** Es muss eine Java JRE installiert sein ** und falls nicht schon vorhanden muss die JAR Datei der kostenlosen Saxon Home Edition im Anwendungsordner liegen: http://saxon.sourceforge.net/#F9.7HE
 
+** Node/Npm muss installiert sein, am besten über NVS https://github.com/jasongin/nvs
+
+### Installation
+* Mit der Kommandozeile `cmd` in ein Verzeichnis wechseln, in dem das Tool installiert werden soll, z.B. `cd c:\work`
+* `git clone https://github.com/HB-Fachmedien/hbfm-db-rss-reader-tool`
+* ins Verzeichnis wechseln `cd hbfm-db-rss-reader-tool`
+* `npm install`
+* kleinen Installationsbug aushebeln: `copy node_modules\materialize-css\js\date_picker\picker.js node_modules\materialize-css\bin`
+* den oben runtergeladenen saxon.jar ins Verzeichnis ablegen
+* Projekt starten mit `npm start`
+
+
 ### Anwendung
 * Anwendung starten mit _hbfm-db-rss-reader-tool.exe_
 * Auswählen, ob man Meldungen oder Interviews verarbeiten möchte
