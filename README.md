@@ -8,9 +8,13 @@
 
 ### Vorbereitungen:
 
-**Es muss eine Java JRE installiert sein** und falls nicht schon vorhanden muss die JAR Datei der kostenlosen Saxon Home Edition im Anwendungsordner liegen: http://saxon.sourceforge.net/#F9.7HE
+**Es muss eine Java JRE installiert sein** und falls nicht schon vorhanden muss die JAR Datei der kostenlosen Saxon Home Edition (v.9) im Anwendungsordner liegen: http://saxon.sourceforge.net/#F9.7HE
 
 **Node/Npm muss installiert sein** am besten über [NVS](https://github.com/jasongin/nvs)
+
+* `choco install nvs`
+* In der Kommandozeile `nvs` uns wählen Node v9.0.0** 
+* `nvs link 9.0.0`
 
 ### Installation
 * Mit der Kommandozeile `cmd` in ein Verzeichnis wechseln, in dem das Tool installiert werden soll, z.B. `cd c:\work`
