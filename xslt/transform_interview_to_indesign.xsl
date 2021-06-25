@@ -59,7 +59,7 @@
         <xsl:apply-templates select="content/*[position()>1]"/>
     </xsl:template>
 
-    <xsl:template match="content/p">
+    <xsl:template match="content/*">
         <xsl:choose>
             <xsl:when test="substring(., 1,2) = 'DB'">
                 <xsl:text>&#xa;</xsl:text>
