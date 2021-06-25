@@ -13,7 +13,7 @@
 **Node/Npm muss installiert sein** am besten über [NVS](https://github.com/jasongin/nvs)
 
 * `choco install nvs` 
-* In der Kommandozeile `nvs` uns wählen Node v9.0.0** 
+* In der Kommandozeile `nvs` und wählen Node v9.0.0** 
 * `nvs link 9.0.0`
 
 ### Installation
