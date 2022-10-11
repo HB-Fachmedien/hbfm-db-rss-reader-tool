@@ -19,7 +19,7 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^1.4.1",
-    "electron-packager": "^8.7.0",
+    "electron-packager": "^16.0.0",
     "replacestream": "^4.0.3"
   },
   "dependencies": {
